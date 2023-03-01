@@ -12,7 +12,7 @@ namespace SocialHelpApi.Models.AutoMapper
         {
             CreateMap<User, UserDto>();
             CreateMap<UserDto,User>();
-            CreateMap<Message, MessageAllDto>().AfterMap((src, dest) => dest.DateMessage = src.DateMessage.ToString("dd/MM/yyyy HH:mm:ss"));            );
+            CreateMap<Message, MessageAllDto>().AfterMap((src, dest) => dest.DateMessage = src.DateMessage.ToString("dd/MM/yyyy HH:mm:ss"));            
             CreateMap<MessageDto, Message>();
         }
 
