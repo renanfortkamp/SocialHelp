@@ -11,10 +11,10 @@ namespace SocialHelpApi.Context
     {
         public ContextApi(DbContextOptions<ContextApi> options) : base(options)
         {
-            
+
         }
-            public DbSet<User> Users { get; set; }
-            public DbSet<Message> Messages { get; set; }
+            public DbSet<User> DbSetUsers { get; set; }
+            public DbSet<Message> DbSetMessages { get; set; }
 
         
     }
