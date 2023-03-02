@@ -1,4 +1,5 @@
 
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SocialHelpApi.Context;
@@ -13,19 +14,22 @@ namespace SocialHelpApi.Controllers
     {
         private readonly ContextApi _context;
 
-        public UserController(ContextApi context)
+        private readonly IMapper _mapper;
+
+        public UserController(ContextApi context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        // GET: api/user?email={email}&password={password}
-        [HttpGet("{email}&{password}")]
-        public async Task<ActionResult<User>> GetUser(string email, string password)
+        // GET: api/user?username={username}&password={password}
+        [HttpGet("{username}&{password}")]
+        public async Task<ActionResult<User>> GetUser(string username, string password)
         {
             try
             {
                 var user = await _context.DbSetUsers
-                    .Where(u => u.Email == email && u.Password == password)
+                    .Where(u => u.UserName == username && u.Password == password)
                     .FirstOrDefaultAsync();
 
                 if (user == null)
@@ -55,12 +59,15 @@ namespace SocialHelpApi.Controllers
                     return BadRequest("Email já cadastrado");
                 }
 
-                var user = new User
-                {
-                    UserName = userDto.UserName,
-                    Email = userDto.Email,
-                    Password = userDto.Password
-                };
+                // var user = new User
+                // {
+                //     UserName = userDto.UserName,
+                //     Email = userDto.Email,
+                //     Password = userDto.Password
+                // };
+
+                var user = _mapper.Map<User>(userDto);
+
                 _context.DbSetUsers.Add(user);
                 await _context.SaveChangesAsync();
 
