@@ -41,7 +41,19 @@ export default function Feed() {
 
 
             })
-                .then(updatePost())
+                
+                .then(
+                    (res) => {
+                        if (res.status === 400) {
+                            alert("Erro ao postar");
+                        }
+                        else {
+                            updatePost();
+                        }
+                    }
+
+                    
+                )
 
 
         } catch (error) {

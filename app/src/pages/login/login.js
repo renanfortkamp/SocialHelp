@@ -14,12 +14,7 @@ export default function Login() {
     const Login = (e) => {
         e.preventDefault();
         //http://localhost:5191/api/user/string&string
-        fetch(`http://localhost:5191/api/user/${email}&${password}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
+        fetch(`http://localhost:5191/api/user/${email}&${password}`)
             .then(e => e.json())
             .then(data => {
                 if (data.length === 0) {
