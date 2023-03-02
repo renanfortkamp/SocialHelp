@@ -23,21 +23,16 @@ namespace SocialHelpApi.Controllers
         }
 
         // GET: api/user?username={username}&password={password}
-        [HttpGet("{username}&{password}")]
-        public async Task<ActionResult<User>> GetUser(string username, string password)
+        [HttpGet("{email}&{password}")]
+        public async Task<ActionResult<User>> GetUser(string email, string password)
         {
             try
             {
                 var user = await _context.DbSetUsers
-                    .Where(u => u.UserName == username && u.Password == password)
+                    .Where(u => u.Email == email && u.Password == password)
                     .FirstOrDefaultAsync();
 
-                if (user == null)
-                {
-                    return NotFound("Usuário não localizado");
-                }
-
-                return user;
+                return Ok(user);
             }
             catch
             {

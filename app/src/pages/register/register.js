@@ -8,11 +8,10 @@ export default function Register() {
     const [password , setPassword] = useState('');
     const navigate = useNavigate();
 
-    const PostSweet = (e) => {
+    const PostMessage = (e) => {
         e.preventDefault();
-        //http://localhost:5066/api/users
-        console.log("Entrou no post");
-        fetch("http://localhost:5066/api/Users", {
+        //http://localhost:5191/api/user
+        fetch("http://localhost:5191/api/user", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -44,7 +43,7 @@ export default function Register() {
     return (
         <div className='register' style={{ display: 'flex', justifyContent: "center", alignItems: "center", flexDirection: "column", border: "solid 1px red" }}>
             <h1>Register</h1>
-            <form onSubmit={(e)=>{PostSweet(e)}}>
+            <form onSubmit={(e)=>{PostMessage(e)}}>
                 <input type="text" placeholder="Name" onChange={(e)=>{setName(e.target.value)}} />
                 <input type="text" placeholder="Email" onChange={(e)=>{setEmail(e.target.value)}} />
                 <input type="text" placeholder="Password" onChange={(e)=>{setPassword(e.target.value)}} />

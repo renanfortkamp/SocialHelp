@@ -10,7 +10,7 @@ export default function Feed() {
     const navigate = useNavigate();
 
     const updatePost = () => {
-        fetch("http://localhost:5066/api/message")
+        fetch("http://localhost:5191/api/message")
             .then(e => e.json())
             .then(data => {
                 setPosts(data);
@@ -30,7 +30,7 @@ export default function Feed() {
     const postMessage = (e) => {
         try {
             e.preventDefault();
-            fetch("http://localhost:5066/api/message?userId=" + context.id, {
+            fetch("http://localhost:5191/api/message?userId=" + context.id, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
