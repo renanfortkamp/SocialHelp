@@ -8,7 +8,7 @@ using SocialHelpApi.Models.Entities;
 
 namespace SocialHelpApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
     public class UserController : ControllerBase
     {
