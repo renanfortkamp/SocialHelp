@@ -49,6 +49,8 @@ namespace SocialHelpApi.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("DbSetMessages");
                 });
 
@@ -79,6 +81,17 @@ namespace SocialHelpApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DbSetUsers");
+                });
+
+            modelBuilder.Entity("SocialHelpApi.Models.Entities.Message", b =>
+                {
+                    b.HasOne("SocialHelpApi.Models.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }
