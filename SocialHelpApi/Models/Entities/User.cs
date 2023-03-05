@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SocialHelpApi.Models.Entities
 {
@@ -18,6 +19,12 @@ namespace SocialHelpApi.Models.Entities
 
         [Required]
         public string Role { get; set; } = "User";
+
+        public string Image { get; set; } = null;
+
+        [ForeignKey("Group")]
+        public int GroupId { get; set; } = 1;
+        public Group Group { get; set; }
         
     }
 }
