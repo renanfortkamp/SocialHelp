@@ -15,6 +15,7 @@ namespace SocialHelpApi.Context
         }
             public DbSet<User> DbSetUsers { get; set; }
             public DbSet<Message> DbSetMessages { get; set; }
+            public DbSet<Group> DbSetGroups { get; set; }
 
         
     }

@@ -12,6 +12,22 @@ namespace SocialHelpApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "DbSetGroups",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DbSetGroups", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "DbSetUsers",
                 columns: table => new
                 {
@@ -20,11 +36,19 @@ namespace SocialHelpApi.Migrations
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GroupId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DbSetUsers", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_DbSetUsers_DbSetGroups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "DbSetGroups",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -37,6 +61,7 @@ namespace SocialHelpApi.Migrations
                     DateMessage = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EnumStatus = table.Column<int>(type: "int", nullable: false),
                     Edit = table.Column<bool>(type: "bit", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -54,6 +79,11 @@ namespace SocialHelpApi.Migrations
                 name: "IX_DbSetMessages_UserId",
                 table: "DbSetMessages",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DbSetUsers_GroupId",
+                table: "DbSetUsers",
+                column: "GroupId");
         }
 
         /// <inheritdoc />
@@ -64,6 +94,9 @@ namespace SocialHelpApi.Migrations
 
             migrationBuilder.DropTable(
                 name: "DbSetUsers");
+
+            migrationBuilder.DropTable(
+                name: "DbSetGroups");
         }
     }
 }
