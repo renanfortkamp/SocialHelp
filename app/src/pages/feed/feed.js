@@ -64,7 +64,7 @@ export default function Feed() {
     return (
         <div className='posts' style={{ display: 'flex', justifyContent: "center", alignItems: "center", flexDirection: "column", border: "solid 1px red" }}>
             <h1>Feed</h1>
-            {<p>Bem vindo {context.name}</p>}
+            {<p>Bem vindo {context.userName}</p>}
             <form onSubmit={(e) => { postMessage(e) }}>
                 <input type="text" placeholder="text" onChange={(e) => setText(e.target.value)} />
                 <button type="submit">Submit</button>

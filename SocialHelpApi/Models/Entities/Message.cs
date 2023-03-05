@@ -13,6 +13,7 @@ namespace SocialHelpApi.Models.Entities
         public DateTime DateMessage { get; set; } = DateTime.Now;
         public int EnumStatus { get; set; } = 1;
         public bool Edit { get; set; } = false;
+        public string UserName { get; set; }
 
         [ForeignKey("User")]
         public int UserId { get; set; }

@@ -23,16 +23,12 @@ namespace Sweeter.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MessageAllDto>>> GetMessages(int? numPosts)
         {
-            var messages = _context.DbSetMessages.OrderByDescending(s => s.DateMessage);
+            var messages = await _context.DbSetMessages.OrderByDescending(s => s.DateMessage).ToListAsync();
             if (numPosts.HasValue)
             {
-                messages = (IOrderedQueryable<Message>)messages.Take(numPosts.Value);
+                messages = messages.Take(numPosts.Value).ToList();
             }
-
-            var messageResponse = await messages
-                .Select(s => _mapper.Map<MessageAllDto>(s))
-                .ToListAsync();
-
+            var messageResponse = _mapper.Map<List<MessageAllDto>>(messages);
             return Ok(messageResponse);
         }
 
@@ -107,10 +103,13 @@ namespace Sweeter.Controllers
     
                 var message = _mapper.Map<Message>(messageDto);
                 message.UserId = existUser.Id;
+                message.UserName = existUser.UserName;
                 _context.DbSetMessages.Add(message);
                 await _context.SaveChangesAsync();
+
+                var messageResponse = _mapper.Map<MessageAllDto>(message);
     
-                return Ok(message);
+                return Ok(messageResponse);
             }
             catch
             {
