@@ -13,7 +13,6 @@ export default function Login() {
 
     const Login = (e) => {
         e.preventDefault();
-        //http://localhost:5191/api/user/string&string
         fetch(`http://localhost:5191/api/user/${email}&${password}`)
             .then(e => e.json())
             .then(data => {
@@ -25,7 +24,6 @@ export default function Login() {
                     setUserFound(true);
                     setContext(data);
                     navigate('/feed');
-                    alert("ENTROU NO ELSE")
                 }
 
             }
@@ -47,7 +45,7 @@ export default function Login() {
                 <button type="submit">Login</button>
             </form>
             {userFound ? <p>Usuário encontrado</p> : <p>Usuário não encontrado</p>}
-            <Link to="/register">Register</Link>
+            <Link to="/userRegister">Register</Link>
 
             {email}
             {password}

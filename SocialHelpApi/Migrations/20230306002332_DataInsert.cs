@@ -5,16 +5,15 @@
 namespace SocialHelpApi.Migrations
 {
     /// <inheritdoc />
-    public partial class GrupoGlobal : Migration
+    public partial class DataInsert : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            //inserir grupo global com id 0 com sqlserver
-
             migrationBuilder.Sql(
-                "INSERT INTO DbSetGroups (Name, Description, Image, UserId) VALUES ('Global', 'Grupo Global', null, 0)"
+                "INSERT INTO DBSetGroups (Name, Description, Image, UserId) VALUES ('Global', 'Global', 'Global', 0)"
             );
+
         }
 
         /// <inheritdoc />

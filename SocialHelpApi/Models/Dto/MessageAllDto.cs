@@ -11,6 +11,7 @@ namespace SocialHelpApi.Models.Dto
         public int EnumStatus { get; set; } = 1;
         public bool Edit { get; set; } = false;
         public int UserId { get; set; }
+        public int GroupId { get; set; }
         public string UserName { get; set; }
 
 

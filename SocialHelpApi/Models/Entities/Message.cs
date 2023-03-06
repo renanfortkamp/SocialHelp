@@ -7,6 +7,7 @@ namespace SocialHelpApi.Models.Entities
     {
         [Key]
         public int Id { get; set; }
+
         [Required]
         [StringLength(255)]
         public string Text { get; set; }
@@ -14,10 +15,7 @@ namespace SocialHelpApi.Models.Entities
         public int EnumStatus { get; set; } = 1;
         public bool Edit { get; set; } = false;
         public string UserName { get; set; }
-
-        [ForeignKey("User")]
         public int UserId { get; set; }
-        public User User { get; set; }
-
+        public int GroupId { get; set; }
     }
 }

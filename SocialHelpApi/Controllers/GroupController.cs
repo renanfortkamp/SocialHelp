@@ -63,11 +63,17 @@ namespace SocialHelpApi.Controllers
                 {
                     return BadRequest("Grupo já cadastrado");
                 }
-    
+
+                var user = await _context.DbSetUsers.FindAsync(@group.UserId);
+                if (user == null)
+                {
+                    return BadRequest("Usuário não encontrado");
+                }
+
                 var groupEntity = _mapper.Map<Group>(@group);
                 _context.DbSetGroups.Add(groupEntity);
                 await _context.SaveChangesAsync();
-    
+   
                 return CreatedAtAction("GetGroup", new { id = groupEntity.Id }, groupEntity);
             }
             catch

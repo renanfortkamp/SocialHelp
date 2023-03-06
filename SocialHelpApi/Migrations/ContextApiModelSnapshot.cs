@@ -64,6 +64,9 @@ namespace SocialHelpApi.Migrations
                     b.Property<int>("EnumStatus")
                         .HasColumnType("int");
 
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -76,8 +79,6 @@ namespace SocialHelpApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("DbSetMessages");
                 });
@@ -114,31 +115,7 @@ namespace SocialHelpApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("GroupId");
-
                     b.ToTable("DbSetUsers");
-                });
-
-            modelBuilder.Entity("SocialHelpApi.Models.Entities.Message", b =>
-                {
-                    b.HasOne("SocialHelpApi.Models.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("SocialHelpApi.Models.Entities.User", b =>
-                {
-                    b.HasOne("SocialHelpApi.Models.Entities.Group", "Group")
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Group");
                 });
 #pragma warning restore 612, 618
         }

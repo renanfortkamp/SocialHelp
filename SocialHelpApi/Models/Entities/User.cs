@@ -21,10 +21,7 @@ namespace SocialHelpApi.Models.Entities
         public string Role { get; set; } = "User";
 
         public string Image { get; set; } = null;
-
-        [ForeignKey("Group")]
         public int GroupId { get; set; } = 1;
-        public Group Group { get; set; }
         
     }
 }

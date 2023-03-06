@@ -73,5 +73,30 @@ namespace SocialHelpApi.Controllers
                 return StatusCode(500, "Erro interno do servidor");
             }
         }
+
+        // PUT: api/user/5
+        [HttpPut]
+        public async Task<IActionResult> PutUser(int id,[FromBody] JoinGroupDto joinGroupDto)
+        {
+            try
+            {
+                var user = await _context.DbSetUsers.FindAsync(id);
+                if (user == null)
+                {
+                    return NotFound( "Usuário não encontrado");
+                }
+
+                user.GroupId = joinGroupDto.GroupId;
+                _context.Entry(user).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+
+                return Ok(user);
+            }
+            catch
+            {
+                return StatusCode(500, "Erro interno do servidor");
+            }
+        
+        }
     }
 }
