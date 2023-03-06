@@ -25,7 +25,7 @@ export default function Feed() {
 
     useEffect(() => {
         updatePost();
-    }, );
+    },[] );
 
     const postMessage = (e) => {
         
