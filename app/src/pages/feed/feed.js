@@ -25,7 +25,7 @@ export default function Feed() {
 
     useEffect(() => {
         updatePost();
-    }, []);
+    }, );
 
     const postMessage = (e) => {
         
@@ -35,13 +35,16 @@ export default function Feed() {
                 alert("Digite algo");
                 return;
             }
-            fetch("http://localhost:5191/api/message?userId=" + context.id, {
+            // fetch("http://localhost:5191/api/message?userId=" + context.id, 
+            fetch("http://localhost:5279",
+            {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
                     text: text,
+                    userID: context.id,
                 })
             })
                 .then(

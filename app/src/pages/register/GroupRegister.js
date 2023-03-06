@@ -8,6 +8,7 @@ export default function GroupRegister() {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const navigate = useNavigate();
+    //eslint-disable-next-line
     const [context, setContext] = useContext(Context);
 
     const PostGroup = (e) => {

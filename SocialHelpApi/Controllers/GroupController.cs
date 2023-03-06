@@ -28,6 +28,7 @@ namespace SocialHelpApi.Controllers
 
         // GET: api/Group
         [HttpGet]
+        
         public async Task<ActionResult<IEnumerable<Group>>> GetGroup(string? name)
         {
             try
