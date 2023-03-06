@@ -13,6 +13,7 @@ namespace Sweeter.Controllers
     {
         private readonly ContextApi _context;
         private readonly IMapper _mapper;
+        
 
         public MessageController(ContextApi context, IMapper mapper)
         {

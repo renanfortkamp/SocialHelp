@@ -35,8 +35,7 @@ export default function Feed() {
                 alert("Digite algo");
                 return;
             }
-            // fetch("http://localhost:5191/api/message?userId=" + context.id, 
-            fetch("http://localhost:5279",
+            fetch("http://localhost:5191/api/message?userId=" + context.id, 
             {
                 method: "POST",
                 headers: {
@@ -44,7 +43,6 @@ export default function Feed() {
                 },
                 body: JSON.stringify({
                     text: text,
-                    userID: context.id,
                 })
             })
                 .then(
