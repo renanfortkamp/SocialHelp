@@ -18,7 +18,6 @@ export default function Login() {
             .then(data => {
                 if (data.length === 0) {
                     setUserFound(false);
-                    alert("ENTREOU NO IF")
                 }
                 else {
                     setUserFound(true);
@@ -29,7 +28,6 @@ export default function Login() {
             }
             )
             .catch((err) => {
-                alert("ENTROU NO CATCH")
                 console.log(err)
             })
     }
@@ -44,11 +42,7 @@ export default function Login() {
                 <input type="text" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
                 <button type="submit">Login</button>
             </form>
-            {userFound ? <p>Usuário encontrado</p> : <p>Usuário não encontrado</p>}
             <Link to="/userRegister">Register</Link>
-
-            {email}
-            {password}
 
 
         </div>
