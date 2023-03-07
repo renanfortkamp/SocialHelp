@@ -28,9 +28,9 @@ export default function Feed() {
     },[] );
 
     const postMessage = (e) => {
+        e.preventDefault();
         if(text !== ""){
         try {
-            e.preventDefault();
             if (text === "") {
                 alert("Digite algo");
                 return;

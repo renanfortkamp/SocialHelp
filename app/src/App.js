@@ -12,7 +12,7 @@ function App() {
   const [context, setContext] = useState([]);
   
   return (
-    <div className="App">
+    <div className="App" style={{backgroundColor:"#FFFFD2",width:"100vw",height:"100vh"}}>
       <BrowserRouter>
         <Context.Provider value={[context, setContext]}>
           <Routes>
