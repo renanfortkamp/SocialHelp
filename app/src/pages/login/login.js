@@ -27,9 +27,9 @@ export default function Login() {
 
             }
             )
-            .catch((err) => {
-                console.log(err)
-            })
+            .catch(
+                alert('Email or password is incorrect')
+            );
     }
 
     return (

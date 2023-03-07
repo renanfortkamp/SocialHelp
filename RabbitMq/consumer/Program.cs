@@ -1,61 +1,62 @@
 ﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using Newtonsoft.Json;
 using System.Text;
+using Consumer.Models;
 
-var factory = new ConnectionFactory() { 
+var factory = new ConnectionFactory()
+{
     HostName = "142.93.173.18",
     UserName = "admin",
     Password = "devintwitter"
 };
 
-try{
+using var connection = factory.CreateConnection();
+using var channel = connection.CreateModel();
 
-    var connection = factory.CreateConnection();
-    var channel = connection.CreateModel();
 
-     channel.QueueDeclare(queue: "a2-renanfortkamp",
-                        durable: false,
-                        exclusive: false,
-                        autoDelete: false,
-                        arguments: null);
-                            
+channel.QueueDeclare(queue: "a2-renanfortkamp",
+                           durable: true,
+                           exclusive: false,
+                           autoDelete: false,
+                           arguments: null);
 
+var consumer = new EventingBasicConsumer(channel);
+
+consumer.Received += async (model, ea) =>
+{
+    var body = ea.Body.ToArray();
+    var message = Encoding.UTF8.GetString(body);
+    var messagePublish = JsonConvert.DeserializeObject<MessagePublish>(message);
     
-    RecebeMensagensChat(channel);
-    
+    try{
 
+        Message message1 = await SaveMessage(messagePublish);
 
-    
-    do{
-        Console.WriteLine("escreva /sair para sair");
-        var message = Console.ReadLine();
-        if(message != "/sair"){
-        }
-        
-    }while(message != "/sair");
+    }catch(Exception e){
+        Console.WriteLine("falha ao salvar");
+    }
 
-}catch(Exception e){
-   
-}
+};
+
+channel.BasicConsume(queue: "a2-renanfortkamp",
+                        autoAck: true,
+                        consumer: consumer);
+
 Console.WriteLine(" Press [enter] to exit.");
 Console.ReadLine();
 
+async Task<Message> SaveMessage(MessagePublish messagePublish)
+{   
+    using var ctx = new CoreApiContext();
+    var message = new Message();
+    message.Text = messagePublish.Text;
+    message.UserName = messagePublish.UserName;
+    message.UserId = messagePublish.UserId;
+    message.GroupId = messagePublish.GroupId;    
 
-static void RecebeMensagensChat(IModel channel){
-    var consumer = new EventingBasicConsumer(channel);
-   
-    consumer.Received += (model, ea) =>
-    {
-        var body = ea.Body.ToArray();
-        var message = Encoding.UTF8.GetString(body);
-        SaveData(message);
-    };
-    channel.BasicConsume(queue: "a2-renanfortkamp",
-                            autoAck: true,
-                            consumer: consumer);
-}
+    ctx.DbSetMessages.Add(message);
+    await ctx.SaveChangesAsync();
 
-
-static void SaveData(message){
-    return ok();
+    return message;
 }

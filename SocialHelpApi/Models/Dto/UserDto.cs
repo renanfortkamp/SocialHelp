@@ -19,3 +19,5 @@ namespace SocialHelpApi.Models.Dto
         public string Email { get; set; }  
     }
 }
+
+

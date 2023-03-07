@@ -28,14 +28,14 @@ export default function Feed() {
     },[] );
 
     const postMessage = (e) => {
-        
+        if(text !== ""){
         try {
             e.preventDefault();
             if (text === "") {
                 alert("Digite algo");
                 return;
             }
-            fetch("http://localhost:5191/api/message?userId=" + context.id, 
+            fetch("http://localhost:5266/api/Message", 
             {
                 method: "POST",
                 headers: {
@@ -43,25 +43,27 @@ export default function Feed() {
                 },
                 body: JSON.stringify({
                     text: text,
+                    userId: context.userId,
+                    groupId: context.groupId,
+                    userName: context.userName
                 })
             })
+                .then(
+                    document.getElementById("text").value = "",
+                    setText("")
+                )
                 .then(
                     (res) => {
                         if (res.status === 400) {
                             alert("Erro ao postar");
                         }
                         else {
-
                             updatePost();
-                            document.getElementById("text").value = "";
-                            setText("");
-
-
                         }
                     })
         } catch (error) {
             alert(error);
-        }
+        }};
     };
 
     return (
